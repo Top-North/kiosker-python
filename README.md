@@ -16,6 +16,8 @@ api = KioskerAPI('10.0.1.100', 'token')
 
 ### Functions
 
+#### Get status
+
 ```python
 status = api.status()
 
