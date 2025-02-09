@@ -40,7 +40,7 @@ class KioskerAPI:
 
     def status(self):
         status_data = self._get('/status').get('status')
-        return Status(status_data)
+        return Status.from_dict(status_data)
 
     def ping(self):
         response_json = self._get('/ping')
@@ -51,44 +51,44 @@ class KioskerAPI:
     
     # Navigation
     def navigate_home(self):
-        return Result(self._post('/navigate/home'))
+        return Result.from_dict(self._post('/navigate/home'))
     
     def navigate_refresh(self):
-        return Result(self._post('/navigate/refresh'))
+        return Result.from_dict(self._post('/navigate/refresh'))
     
     def navigate_forward(self):
-        return Result(self._post('/navigate/forward'))
+        return Result.from_dict(self._post('/navigate/forward'))
     
     def navigate_backward(self):
-        return Result(self._post('/navigate/backward'))
+        return Result.from_dict(self._post('/navigate/backward'))
     
     def navigate_url(self, url: str):
-        return Result(self._post('/navigate/url', json={'url': url}))
+        return Result.from_dict(self._post('/navigate/url', json={'url': url}))
     
     # Print
     def print(self):
-        return Result(self._post('/print'))
+        return Result.from_dict(self._post('/print'))
     
     # Clear
     def clear_cookies(self):
-        return Result(self._post('/clear/cookies'))
+        return Result.from_dict(self._post('/clear/cookies'))
     
     def clear_cache(self):
-        return Result(self._post('/clear/cache'))
+        return Result.from_dict(self._post('/clear/cache'))
     
     # Screensaver
     def screensaver_interact(self):
-        return Result(self._post('/screensaver/interact'))
+        return Result.from_dict(self._post('/screensaver/interact'))
     
     def screensaver_set_state(self, disabled: bool):
-        return Result(self._post('/screensaver/state', json={'disabled': disabled}))
+        return Result.from_dict(self._post('/screensaver/state', json={'disabled': disabled}))
     
     def screensaver_get_state(self):
         return self.status().screensaver_pause
     
     # Blackout
     def blackout_set(self, object: Blackout):
-        return Result(self._post('/blackout', json=object.to_dict()))
+        return Result.from_dict(self._post('/blackout', json=object.to_dict()))
     
     def blackout_get(self):
         blackout_data = self._get('/blackout/state').get('blackOut')
@@ -97,4 +97,4 @@ class KioskerAPI:
         return Blackout.from_dict(blackout_data)
     
     def blackout_clear(self):
-        return Result(self._post('/blackout', json={'visible': False}))
+        return Result.from_dict(self._post('/blackout', json={'visible': False}))

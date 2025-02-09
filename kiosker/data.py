@@ -14,27 +14,19 @@ class Status:
     last_motion: Optional[datetime.datetime]
     screensaver_pause: Optional[bool]
     
-    def __init__(self, status_data):
-        self.battery_level = status_data['batteryLevel']
-        self.battery_state = status_data['batteryState']
-        self.model = status_data['model']
-        self.os_version = status_data['osVersion']
-        self.last_interaction = datetime.datetime.fromisoformat(status_data['lastInteraction'])
-        self.last_motion = datetime.datetime.fromisoformat(status_data['lastMotion']) if status_data.get('lastMotion') else None
-        self.last_update = datetime.datetime.fromisoformat(status_data['date'])
-        self.device_id = status_data['deviceId']
-        self.screensaver_pause = status_data['screensaverPause'] if status_data.get('screensaverPause') else None
+    @classmethod
+    def from_dict(cls, status_data):
+        return cls(battery_level=status_data['batteryLevel'], battery_state=status_data['batteryState'], model=status_data['model'], os_version=status_data['osVersion'], last_interaction=datetime.datetime.fromisoformat(status_data['lastInteraction']), last_motion=datetime.datetime.fromisoformat(status_data['lastMotion']) if status_data.get('lastMotion') else None, last_update=datetime.datetime.fromisoformat(status_data['date']), device_id=status_data['deviceId'], screensaver_pause=status_data['screensaverPause'] if status_data.get('screensaverPause') else None)
 
 @dataclass
 class Result:
     error: bool
-    reason: str
+    reason: Optional[str]
     function: Optional[str]
-
-    def __init__(self, result_data):
-        self.error = result_data['error']
-        self.function = result_data['function']
-        self.reason = result_data['reason'] if result_data.get('reason') else None
+    
+    @classmethod
+    def from_dict(cls, result_data):
+        return cls(error=result_data['error'], reason=result_data['reason'] if result_data.get('reason') else None , function=result_data.get('function') if result_data.get('function') else None)
         
 @dataclass
 class Blackout:
