@@ -10,7 +10,7 @@ pip3 install kiosker-python
 ### Setup
 
 ```python
-import from kiosker.api import KioskerAPI
+from kiosker.api import KioskerAPI
 api = KioskerAPI('10.0.1.100', 'ABC123')
 ```
 
