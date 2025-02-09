@@ -43,3 +43,4 @@ class Blackout:
     @classmethod
     def from_dict(cls, blackout_data):
         return cls(visible=blackout_data['visible'], text=blackout_data.get('text'), background=blackout_data['background'], foreground=blackout_data['foreground'], icon=blackout_data.get('icon'), expire=blackout_data['expire'])
+    

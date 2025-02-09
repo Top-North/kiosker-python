@@ -24,7 +24,9 @@ class KioskerAPI:
         else:
             r.raise_for_status()
             
-    def _post(self, path: str, json={}):
+    def _post(self, path: str, json=None):
+        if json is None:
+            json = {}
         r = httpx.post(f'{self.conf_host}{API_PATH}{path}', headers=self.conf_headers, json=json)
         if r.status_code == 200:
             return r.json()
@@ -44,10 +46,11 @@ class KioskerAPI:
 
     def ping(self):
         response_json = self._get('/ping')
-        if response_json.get('error') == False:
+        result = Result.from_dict(response_json)
+        if result.error is False:
             return True
         else:
-            raise RuntimeError("Ping error: {}".format(response_json))
+            raise RuntimeError(f'Ping error: {result.reason}')
     
     # Navigation
     def navigate_home(self):
@@ -87,8 +90,8 @@ class KioskerAPI:
         return self.status().screensaver_pause
     
     # Blackout
-    def blackout_set(self, object: Blackout):
-        return Result.from_dict(self._post('/blackout', json=object.to_dict()))
+    def blackout_set(self, blackout: Blackout):
+        return Result.from_dict(self._post('/blackout', json=blackout.to_dict()))
     
     def blackout_get(self):
         blackout_data = self._get('/blackout/state').get('blackOut')
