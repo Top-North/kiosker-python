@@ -16,6 +16,23 @@ api = KioskerAPI('10.0.1.100', 'token')
 
 ### Functions
 
+```python
+status = api.status()
+
+print('Status:')
+print(f'Device ID: {status.device_id}')
+print(f'Model: {status.model}')
+print(f'OS version: {status.os_version}')
+print(f'Battery level: {status.battery_level}%')
+print(f'Battery state: {status.battery_state}')
+print(f'Last interaction: {status.last_interaction}')
+print(f'Last motion: {status.last_motion}')
+print(f'Last status update: {status.last_update}')
+print(f'Screensaver pause: {status.screensaver_pause}')
+```
+
+
+
 ### Objetcs
 
 ### API Documentation
