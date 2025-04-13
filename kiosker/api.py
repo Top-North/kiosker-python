@@ -94,7 +94,7 @@ class KioskerAPI:
         return Result.from_dict(self._post('/blackout', json=blackout.to_dict()))
     
     def blackout_get(self):
-        blackout_data = self._get('/blackout/state').get('blackOut')
+        blackout_data = self._get('/blackout/state').get('blackout')
         if blackout_data is None:
             return None
         return Blackout.from_dict(blackout_data)
