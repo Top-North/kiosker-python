@@ -33,9 +33,31 @@ print(f'Last status update: {status.last_update}')
 print(f'Screensaver pause: {status.screensaver_pause}')
 ```
 
+### Objects
 
+### Development
+1. Create a virtual environment
+```bash
+python3 -m venv venv
+```
 
-### Objetcs
+2. Activate the virtual environment
+```bash
+source venv/bin/activate
+```
+
+3. Install dependecies
+```bash
+pip install wheel
+pip install setuptools
+pip install twine
+```
+
+4. Run test
+```bash
+HOST="" TOKEN="" pytest -s
+```
+
 
 ### API Documentation
 [Docs](https://docs.kiosker.io/#/api)
