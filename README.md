@@ -218,6 +218,11 @@ pip install twine
 HOST="" TOKEN="" pytest -s
 ```
 
+6. Build the library
+```shell
+python setup.py bdist_wheel
+```
+
 ---
 
 ### API Documentation
