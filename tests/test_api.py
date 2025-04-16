@@ -1,4 +1,4 @@
-from kiosker.api import KioskerAPI, Blackout
+from kiosker import KioskerAPI, Blackout
 import time
 import os
 
