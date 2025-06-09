@@ -1,4 +1,0 @@
-httpx
-
-[test]
-pytest
