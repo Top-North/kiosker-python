@@ -6,7 +6,7 @@ Python wrapper for Kiosker API-integration.
 ### Installation
 
 ```shell
-pip3 install kiosker-python
+pip install kiosker-python
 ```
 
 ---
@@ -233,12 +233,17 @@ HOST="0.0.0.0" TOKEN="" pytest -s
 
 6. Build the library
 ```shell
-python -m build --wheel
+python -m build
 ```
 
 7. Upload to test
 ```shell
 twine upload --repository testpypi dist/*
+```
+
+7. Upload to prod
+```shell
+twine upload dist/*
 ```
 
 ---
