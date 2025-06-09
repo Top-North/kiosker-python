@@ -35,7 +35,6 @@ print(f'Battery state: {status.battery_state}')
 print(f'Last interaction: {status.last_interaction}')
 print(f'Last motion: {status.last_motion}')
 print(f'Last status update: {status.last_update}')
-print(f'Screensaver pause: {status.screensaver_pause}')
 ```
 **Description**: Retrieves the current status of the kiosk.
 
