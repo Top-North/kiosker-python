@@ -6,7 +6,7 @@ Python wrapper for Kiosker API-integration.
 ### Installation
 
 ```shell
-pip install kiosker-python
+pip install kiosker-python-api
 ```
 
 ---
