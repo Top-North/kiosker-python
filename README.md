@@ -14,7 +14,12 @@ pip install kiosker-python-api
 ### Setup
 
 ```python
-from kiosker.api import KioskerAPI
+KioskerAPI(host, token, port = 8081, ssl = False)
+```
+
+```python
+from kiosker import KioskerAPI
+from kiosker import Status, Result, Blackout, ScreensaverState
 api = KioskerAPI('10.0.1.100', 'token')
 ```
 
@@ -34,6 +39,8 @@ print(f'Battery level: {status.battery_level}%')
 print(f'Battery state: {status.battery_state}')
 print(f'Last interaction: {status.last_interaction}')
 print(f'Last motion: {status.last_motion}')
+print(f'App name: {status.app_name}')
+print(f'App version: {status.app_version}')
 print(f'Last status update: {status.last_update}')
 ```
 **Description**: Retrieves the current status of the kiosk.
@@ -124,7 +131,7 @@ print(f"Screensaver state: {state}")
 
 #### Set Blackout
 ```python
-from kiosker.data import Blackout
+from kiosker import Blackout
 
 blackout = Blackout(
     visible=True,                   # Required: show blackout screen

@@ -29,7 +29,8 @@ def test_status():
     print(f'Last interaction: {status.last_interaction}')
     print(f'Last motion: {status.last_motion}')
     print(f'Last status update: {status.last_update}')
-    print(f'Screensaver pause: {status.screensaver_pause}')
+    print(f'App name: {status.app_name}')
+    print(f'App version: {status.app_version}')
 
     assert api.ping() == True
     

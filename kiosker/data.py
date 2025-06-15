@@ -8,15 +8,16 @@ class Status:
     battery_state: str
     model: str
     os_version: str
+    app_name: str
+    app_version: str
     last_interaction: datetime
     last_update: datetime
     device_id: str
     last_motion: Optional[datetime]
-    screensaver_pause: Optional[bool]
     
     @classmethod
     def from_dict(cls, status_data):
-        return cls(battery_level=status_data['batteryLevel'], battery_state=status_data['batteryState'], model=status_data['model'], os_version=status_data['osVersion'], last_interaction=datetime.fromisoformat(status_data['lastInteraction']), last_motion=datetime.fromisoformat(status_data['lastMotion']) if status_data.get('lastMotion') else None, last_update=datetime.fromisoformat(status_data['date']), device_id=status_data['deviceId'], screensaver_pause=status_data['screensaverPause'] if status_data.get('screensaverPause') else None)
+        return cls(battery_level=status_data['batteryLevel'], battery_state=status_data['batteryState'], model=status_data['model'], os_version=status_data['osVersion'], app_name=status_data['appName'], app_version=status_data['appVersion'], last_interaction=datetime.fromisoformat(status_data['lastInteraction']), last_motion=datetime.fromisoformat(status_data['lastMotion']) if status_data.get('lastMotion') else None, last_update=datetime.fromisoformat(status_data['date']), device_id=status_data['deviceId'])
 
 @dataclass
 class Result:
