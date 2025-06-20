@@ -4,10 +4,12 @@ import os
 
 host = os.environ["HOST"]
 token = os.environ["TOKEN"]
+ssl = os.environ.get("SSL", "false").lower() in ("true", "1", "yes", "on")
+verify = os.environ.get("VERIFY", "false").lower() in ("true", "1", "yes", "on")
 
+api = KioskerAPI(host, token, ssl=ssl, verify=verify)
 
 def test_ping():
-    api = KioskerAPI(host, token)
 
     result = api.ping()
     
@@ -16,8 +18,6 @@ def test_ping():
 
 def test_status():
     
-    api = KioskerAPI(host, token)
-
     status = api.status()
     
     print('Status:')
@@ -36,8 +36,6 @@ def test_status():
     
 def test_navigate():
     
-    api = KioskerAPI(host, token)
-
     print('Navigating to URL...')
     result = api.navigate_url('https://google.com')
     print(f'Navigate URL: {result}')
@@ -70,8 +68,6 @@ def test_navigate():
 
 def test_print():
     
-    api = KioskerAPI(host, token)
-
     print('Printing...')
     result = api.print()
     print(f'Print: {result}')
@@ -80,8 +76,6 @@ def test_print():
     
 def test_clear():
     
-    api = KioskerAPI(host, token)
-
     print('Clearing cookies...')
     result = api.clear_cookies()
     print(f'Clear cookies: {result}')
@@ -96,8 +90,6 @@ def test_clear():
 
 def test_screensaver():
     
-    api = KioskerAPI(host, token)
-
     print('Interacting with screensaver...')
     result = api.screensaver_interact()
     print(f'Screensaver interact: {result}')
@@ -133,9 +125,7 @@ def test_screensaver():
     print(f'Screensaver state: {state}')
         
 def test_blackout():
-    
-    api = KioskerAPI(host, token)
-    
+        
     print(f'Blackout state: {api.blackout_get()}')
     
     api.blackout_set(Blackout(visible=True, text='This is a test from Python that should clear', background='#000000', foreground='#FFFFFF', icon='ladybug', expire=20))

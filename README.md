@@ -1,5 +1,16 @@
 # Python wrapper for Kiosker API
-Python wrapper for Kiosker API-integration.
+
+This Python library provides a comprehensive wrapper for the Kiosker API, enabling developers to programmatically control and manage Kiosker devices. Kiosker is a professional web kiosk application for iOS that transforms iPads into secure, full-screen web browsers perfect for public displays, interactive kiosks, and digital signage solutions.
+
+The kiosker-python-api package allows you to:
+- **Remote Control**: Navigate web pages, refresh content, and control browser functions
+- **Device Management**: Monitor device status, battery levels, and system information
+- **Content Control**: Manage blackout screens for maintenance or emergency messaging
+- **Screen Management**: Control screensaver behavior
+- **System Maintenance**: Clear cookies, cache, and perform system operations
+- **Network Discovery**: Automatically discover Kiosker devices on your network using ZeroConf
+
+Whether you're managing a single kiosk or deploying a fleet of devices across multiple locations, this library provides the tools needed to integrate Kiosker devices into your existing infrastructure and workflows.
 
 ---
 
@@ -14,7 +25,7 @@ pip install kiosker-python-api
 ### Setup
 
 ```python
-KioskerAPI(host, token, port = 8081, ssl = False)
+KioskerAPI(host, token, port = 8081, ssl = False, verify = False)
 ```
 
 ```python
@@ -22,6 +33,29 @@ from kiosker import KioskerAPI
 from kiosker import Status, Result, Blackout, ScreensaverState
 api = KioskerAPI('10.0.1.100', 'token')
 ```
+
+#### Constructor Parameters
+
+- **host** (str): IP address or hostname of the Kiosker device
+- **token** (str): Authentication token for API access
+- **port** (int, optional): Port number (default: 8081)
+- **ssl** (bool, optional): Use HTTPS instead of HTTP (default: False)
+- **verify** (bool | ssl.SSLContext, optional): SSL certificate verification. Set to False to disable SSL verification for self-signed certificates (default: False)
+
+---
+
+### Device Discovery with ZeroConf
+
+Kiosker devices advertise themselves on the local network using ZeroConf (Bonjour/mDNS) autodiscovery. This allows you to automatically discover Kiosker devices without needing to know their IP addresses beforehand.
+
+#### Service Information
+
+Kiosker devices broadcast the following service:
+- **Service Type**: `_kiosker._tcp`
+- **TXT Records**:
+  - `version`: App version (e.g., "25.1.0 (230)")
+  - `app`: App name (e.g., "Kiosker Pro")
+  - `uuid`: Unique device identifier (e.g., "2904C1F2-93FB-4954-BF85-FAAEFBA814F6")
 
 ---
 
@@ -117,7 +151,7 @@ print(f"Screensaver interaction result: {result}")
 
 #### Set Screensaver State
 ```python
-result = api.screensaver_set_state(disabled=True)
+result = api.screensaver_set_disabled_state(disabled=True)
 print(f"Screensaver disabled: {result}")
 ```
 **Description**: Enables or disables the screensaver.
@@ -177,6 +211,8 @@ Represents the current status of the kiosk.
 - `battery_state` (str): Current battery state (e.g., charging, discharging).
 - `model` (str): Device model.
 - `os_version` (str): Operating system version.
+- `app_name` (str): Name of the currently running app.
+- `app_version` (str): Version of the currently running app.
 - `last_interaction` (datetime): Timestamp of the last user interaction.
 - `last_motion` (Optional[datetime]): Timestamp of the last detected motion.
 - `last_update` (datetime): Timestamp of the last status update.
@@ -248,7 +284,7 @@ python -m build
 twine upload --repository testpypi dist/*
 ```
 
-7. Upload to prod
+8. Upload to prod
 ```shell
 twine upload dist/*
 ```

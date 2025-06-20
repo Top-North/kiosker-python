@@ -1,10 +1,11 @@
+import ssl
 import httpx
 from .data import Status, Result, Blackout, ScreensaverState
 
 API_PATH = '/api/v1'
 
 class KioskerAPI:
-    def __init__(self, host, token, port=8081, ssl=False):
+    def __init__(self, host, token, port=8081, ssl=False, verify: bool | ssl.SSLContext =False):
         if ssl:
             self.conf_host = f'https://{host}:{port}'
         else:
@@ -13,8 +14,10 @@ class KioskerAPI:
         self.conf_headers = {'accept': 'application/json',
                              'Authorization': f'Bearer {token}'}
         
+        self.verify = verify
+        
     def _get(self, path: str):
-        r = httpx.get(f'{self.conf_host}{API_PATH}{path}', headers=self.conf_headers)
+        r = httpx.get(f'{self.conf_host}{API_PATH}{path}', headers=self.conf_headers, verify=self.verify)
         if r.status_code == 200:
             return r.json()
         elif r.status_code == 401:
@@ -27,7 +30,7 @@ class KioskerAPI:
     def _post(self, path: str, json=None):
         if json is None:
             json = {}
-        r = httpx.post(f'{self.conf_host}{API_PATH}{path}', headers=self.conf_headers, json=json)
+        r = httpx.post(f'{self.conf_host}{API_PATH}{path}', headers=self.conf_headers, json=json, verify=self.verify)
         if r.status_code == 200:
             return r.json()
         elif r.status_code == 401:
