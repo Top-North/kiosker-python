@@ -216,7 +216,7 @@ Represents the current status of the kiosk.
 - `app_version` (str): Version of the currently running app.
 - `last_interaction` (datetime): Timestamp of the last user interaction.
 - `last_motion` (Optional[datetime]): Timestamp of the last detected motion.
-- `ambient_light` (Optional[float]): The raw data from the camera ambient light.
+- `ambient_light` (Optional[float]): The raw data from the camera ambient light sensor.
 - `last_update` (datetime): Timestamp of the last status update.
 - `device_id` (str): Unique identifier for the device.
 
