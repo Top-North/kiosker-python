@@ -28,12 +28,14 @@ def test_status():
     print(f'Battery state: {status.battery_state}')
     print(f'Last interaction: {status.last_interaction}')
     print(f'Last motion: {status.last_motion}')
+    print(f'Ambient light: {status.ambient_light}')
     print(f'Last status update: {status.last_update}')
     print(f'App name: {status.app_name}')
     print(f'App version: {status.app_version}')
+    
 
     assert api.ping() == True
-    
+
 def test_navigate():
     
     print('Navigating to URL...')

@@ -14,10 +14,11 @@ class Status:
     last_update: datetime
     device_id: str
     last_motion: Optional[datetime]
+    ambient_light: Optional[float]
     
     @classmethod
     def from_dict(cls, status_data):
-        return cls(battery_level=status_data['batteryLevel'], battery_state=status_data['batteryState'], model=status_data['model'], os_version=status_data['osVersion'], app_name=status_data['appName'], app_version=status_data['appVersion'], last_interaction=datetime.fromisoformat(status_data['lastInteraction']), last_motion=datetime.fromisoformat(status_data['lastMotion']) if status_data.get('lastMotion') else None, last_update=datetime.fromisoformat(status_data['date']), device_id=status_data['deviceId'])
+        return cls(battery_level=status_data['batteryLevel'], battery_state=status_data['batteryState'], model=status_data['model'], os_version=status_data['osVersion'], app_name=status_data['appName'], app_version=status_data['appVersion'], last_interaction=datetime.fromisoformat(status_data['lastInteraction']), last_motion=datetime.fromisoformat(status_data['lastMotion']) if status_data.get('lastMotion') else None, last_update=datetime.fromisoformat(status_data['date']), device_id=status_data['deviceId'], ambient_light=status_data['ambientLight'] if status_data.get('ambientLight') else None)
 
 @dataclass
 class Result:
