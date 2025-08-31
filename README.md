@@ -73,6 +73,7 @@ print(f'Battery level: {status.battery_level}%')
 print(f'Battery state: {status.battery_state}')
 print(f'Last interaction: {status.last_interaction}')
 print(f'Last motion: {status.last_motion}')
+print(f'Ambient light: {status.ambient_light}')
 print(f'App name: {status.app_name}')
 print(f'App version: {status.app_version}')
 print(f'Last status update: {status.last_update}')
@@ -215,6 +216,7 @@ Represents the current status of the kiosk.
 - `app_version` (str): Version of the currently running app.
 - `last_interaction` (datetime): Timestamp of the last user interaction.
 - `last_motion` (Optional[datetime]): Timestamp of the last detected motion.
+- `ambient_light` (Optional[float]): The raw data from the camera ambient light.
 - `last_update` (datetime): Timestamp of the last status update.
 - `device_id` (str): Unique identifier for the device.
 
