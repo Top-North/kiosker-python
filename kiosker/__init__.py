@@ -1,2 +1,2 @@
 from .api import KioskerAPI
-from .data import Status, Result, Blackout
+from .data import Status, Result, Blackout, ScreensaverState
