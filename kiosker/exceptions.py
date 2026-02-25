@@ -10,10 +10,10 @@ class ConnectionError(KioskerError):
 class AuthenticationError(KioskerError):
     """Exception raised when authentication fails."""
 
-class IPAuthenticationFailed(KioskerError):
+class IPAuthenticationError(KioskerError):
     """Exception raised when ip-list authentication fails."""
 
-class TLSVerificationFailed(KioskerError):
+class TLSVerificationError(KioskerError):
     """Exception raised when access is denied."""
 
 class BadRequestError(KioskerError):
