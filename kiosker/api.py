@@ -1,7 +1,7 @@
 import ssl
 import httpx
 from .data import Status, Result, Blackout, ScreensaverState
-from .exceptions import ConnectionError, TLSVerificationError, InvalidResponseError, AuthenticationError, IPAuthenticationError, BadRequestError, PingError
+from .exceptions import ConnectionError, TLSVerificationError, AuthenticationError, IPAuthenticationError, BadRequestError, PingError
 
 API_PATH = '/api/v1'
 
@@ -22,10 +22,10 @@ class KioskerAPI:
             r = httpx.get(f'{self.conf_host}{API_PATH}{path}', headers=self.conf_headers, verify=self.verify)
         except httpx.ConnectError as e:
             if "CERTIFICATE_VERIFY_FAILED" in str(e) or "SSL" in str(e):
-                raise TLSVerificationError(f"TLS verification failed: {e}")
-            raise ConnectionError(f"Connection failed: {e}")
-        except (httpx.TimeoutException, httpx.NetworkError) as e:
-            raise ConnectionError(f"Connection failed: {e}")
+                raise TLSVerificationError(e)
+            raise ConnectionError(e)
+        except Exception as e:
+            raise ConnectionError(e)
         if r.status_code == 200:
             return r.json()
         elif r.status_code == 401:
@@ -33,7 +33,7 @@ class KioskerAPI:
         elif r.status_code == 403:
             raise IPAuthenticationError("IP not allowed")
         else:
-            r.raise_for_status()
+            raise ConnectionError(r.status_code)
             
     def _post(self, path: str, json=None):
         if json is None:
@@ -42,10 +42,10 @@ class KioskerAPI:
             r = httpx.post(f'{self.conf_host}{API_PATH}{path}', headers=self.conf_headers, json=json, verify=self.verify)
         except httpx.ConnectError as e:
             if "CERTIFICATE_VERIFY_FAILED" in str(e) or "SSL" in str(e):
-                raise TLSVerificationError(f"TLS verification failed: {e}")
-            raise ConnectionError(f"Connection failed: {e}")
-        except (httpx.TimeoutException, httpx.NetworkError) as e:
-            raise ConnectionError(f"Connection failed: {e}")
+                raise TLSVerificationError(e)
+            raise ConnectionError(e)
+        except Exception as e:
+            raise ConnectionError(e)
         if r.status_code == 200:
             return r.json()
         elif r.status_code == 401:
@@ -55,7 +55,7 @@ class KioskerAPI:
         elif r.status_code == 400:
             raise BadRequestError("Bad request")
         else:
-            r.raise_for_status()
+            raise ConnectionError(r.status_code)
 
     def status(self):
         status_data = self._get('/status').get('status')

@@ -1,26 +1,23 @@
 """Custom exceptions for the Kiosker API."""
 
 
-class KioskerError(Exception):
+class KioskerException(Exception):
     """Base exception for Kiosker API errors."""
 
-class ConnectionError(KioskerError):
+class ConnectionError(KioskerException):
     """Exception raised when connection to Kiosker device fails."""
 
-class AuthenticationError(KioskerError):
+class AuthenticationError(KioskerException):
     """Exception raised when authentication fails."""
 
-class IPAuthenticationError(KioskerError):
+class IPAuthenticationError(KioskerException):
     """Exception raised when ip-list authentication fails."""
 
-class TLSVerificationError(KioskerError):
+class TLSVerificationError(KioskerException):
     """Exception raised when access is denied."""
 
-class BadRequestError(KioskerError):
+class BadRequestError(KioskerException):
     """Exception raised when the request is invalid."""
-
-class InvalidResponseError(KioskerError):
-    """Exception raised when device returns invalid response."""
     
-class PingError(KioskerError):
+class PingError(KioskerException):
     """Exception raised when ping fails."""
