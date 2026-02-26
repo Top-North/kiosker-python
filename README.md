@@ -253,6 +253,55 @@ Represents the state of the screensaver.
 
 ---
 
+### Exception Handling
+
+The kiosker-python-api defines custom exceptions to provide clear error handling for different failure scenarios:
+
+#### Exception Hierarchy
+
+All custom exceptions inherit from the base `KioskerException` class:
+
+```python
+from kiosker.exceptions import (
+    KioskerException,
+    ConnectionError,
+    AuthenticationError,
+    IPAuthenticationError,
+    TLSVerificationError,
+    BadRequestError,
+    PingError
+)
+```
+
+#### Exception Types
+
+- **`KioskerException`**: Base exception for all Kiosker API errors
+- **`ConnectionError`**: Raised when connection to the Kiosker device fails
+- **`AuthenticationError`**: Raised when authentication fails
+- **`IPAuthenticationError`**: Raised when IP-list authentication fails
+- **`TLSVerificationError`**: Raised when TLS verification fails
+- **`BadRequestError`**: Raised when the request is invalid
+- **`PingError`**: Raised when ping operation fails
+
+#### Usage Example
+
+```python
+from kiosker import KioskerAPI
+from kiosker.exceptions import ConnectionError, AuthenticationError
+
+try:
+    api = KioskerAPI('10.0.1.100', 'invalid_token')
+    result = api.ping()
+except ConnectionError:
+    print("Could not connect to the Kiosker device")
+except AuthenticationError:
+    print("Authentication failed - check your token")
+except KioskerException as e:
+    print(f"Kiosker API error: {e}")
+```
+
+---
+
 ### Development
 1. Clone the project
 
