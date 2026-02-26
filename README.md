@@ -330,6 +330,11 @@ HOST="0.0.0.0" TOKEN="" pytest -s
 python -m build
 ```
 
+6. Install as local development dependency
+```shell
+uv pip install -e /path/to/kiosker-python
+```
+
 7. Upload to test
 ```shell
 twine upload --repository testpypi dist/*
