@@ -19,5 +19,11 @@ class TLSVerificationError(KioskerException):
 class BadRequestError(KioskerException):
     """Exception raised when the request is invalid."""
     
+class NotFoundError(KioskerException):
+    """Exception raised when the requested object doesn't exist."""
+
+class ConflictError(KioskerException):
+    """Exception raised when the operation is blocked, eg. because the setting is managed by MDM."""
+
 class PingError(KioskerException):
     """Exception raised when ping fails."""
